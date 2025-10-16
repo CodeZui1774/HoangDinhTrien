@@ -47,7 +47,7 @@ function createRoundedImageTexture(image, radius = 20) {
     return new THREE.CanvasTexture(canvas);
 }
 
-for (let i = 1; i <= 50; i++) {
+for (let i = 1; i <= 83; i++) {
     textureLoader.load(`./img/Anh (${i}).jpg`, (imgTexture) => {
         const image = imgTexture.image;
         const roundedTexture = createRoundedImageTexture(image);
@@ -233,4 +233,5 @@ function enableMusicOnTouch() {
 }
 
 document.addEventListener("click", enableMusicOnTouch);
+
 document.addEventListener("touchstart", enableMusicOnTouch);
