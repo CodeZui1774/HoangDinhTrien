@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Love thư</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ffe8ef;
+      --pink: #f6a6b2;
+      --pink-light: #ffc1cc;
+      --heart: #ff334e;
+      --text: #9a8f97;
+    }
+    * { box-sizing: border-box }
+    html, body { height: 100% }
+    body {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color: #222;
+      background: url('./img/background.jpg') no-repeat center center fixed; /* Thay bằng đường dẫn ảnh của bạn */
+      background-size: cover;
+      overflow: hidden;
+      font-family: 'Pacifico', cursive;
+    }
+
+    .wrap {
+      display: flex;
+      flex-direction: column; 
+      align-items: center;
+      justify-content: center;
+    }
+    .envelope {
+      position: relative;
+      width: min(360px, 88vw);
+      height: min(240px, 58vw);
+      perspective: 1200px;
+      cursor: pointer;
+      user-select: none;
+      animation: twinkle-envelope 2s ease-in-out infinite;
+    }
+    .pocket {
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      background: linear-gradient(145deg, var(--pink), var(--pink-light));
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, .2);
+      z-index: 10;
+    }
+    .pocket::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, var(--pink), #ffb3bf);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 50% 34%);
+    }
+    .pocket::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+      opacity: 0.5;
+      animation: sparkle-envelope 4s ease-in-out infinite;
+    }
+    .flap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 56%;
+      transform-origin: top center;
+      transform: rotateX(0deg);
+      transition: transform .8s cubic-bezier(.25, .8, .25, 1);
+      background: linear-gradient(#f6cede, #fefefe) padding-box,
+                  linear-gradient(180deg, rgba(255, 193, 204, 0.3), rgba(0, 0, 0, 0)) border-box;
+      border: 2px solid rgba(255, 255, 255, .3);
+      clip-path: polygon(0 0, 100% 0, 50% 78%);
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+      overflow: hidden;
+      z-index: 13;
+    }
+    .heart {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      cursor: pointer;
+      z-index: 12;
+    }
+    .heart svg {
+      width: 100%;
+      height: 100%;
+      fill: var(--heart);
+      filter: drop-shadow(0 0 8px rgba(255, 51, 78, 0.6));
+    }
+    .heart .particle-1,
+    .heart .particle-2,
+    .heart .particle-3,
+    .heart .particle-4 {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--heart);
+      border-radius: 50%;
+      animation: sparkle-orbit 2s linear infinite;
+    }
+    .heart .particle-1 { top: 0; left: 50%; animation-delay: 0s; }
+    .heart .particle-2 { top: 50%; left: 100%; animation-delay: 0.5s; }
+    .heart .particle-3 { top: 100%; left: 50%; animation-delay: 1s; }
+    .heart .particle-4 { top: 50%; left: 0; animation-delay: 1.5s; }
+    @keyframes sparkle-orbit {
+      0% { transform: rotate(0deg) translateY(-20px); opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { transform: rotate(360deg) translateY(-20px); opacity: 0; }
+    }
+    @keyframes twinkle-envelope {
+      0%, 100% { filter: brightness(1) drop-shadow(0 16px 18px rgba(0, 0, 0, .15)); transform: scale(1); }
+      50% { filter: brightness(1.2) drop-shadow(0 20px 22px rgba(0, 0, 0, .2)); transform: scale(1.05); }
+    }
+    @keyframes sparkle-envelope {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 0.8; }
+    }
+
+    /* tem ảnh */
+    .stamp1 {
+      position: absolute;
+      right: 10px;
+      top: 60%;
+      transform: translateY(-50%) rotate(-6deg);
+      width: 100px;
+      height: 100px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, .2);
+      border: 3px solid #fff;
+      background: #fff;
+      z-index: 15;
+    }
+
+    .stamp2 {
+      position: absolute;
+      left: 10px;
+      top: 60%;
+      transform: translateY(-50%) rotate(16deg);
+      width: 70px;
+      height: 70px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, .2);
+      border: 3px solid #fff;
+      background: #fff;
+      z-index: 15;
+    }
+
+    .stamp1:hover,
+    .stamp2:hover{
+      width: 100%;
+      height: 100%;
+      transform: translateY(0) rotate(0deg);
+      object-fit: cover;
+      transition: all 0.6s ease-in-out;
+    }
+
+    .instruction {
+      user-select: none;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--heart);
+      text-align: center;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    .emoji-effect {
+      user-select: none;
+  position: fixed;
+  animation: popFade 1s ease-out forwards;
+  pointer-events: none;
+  user-select: none;
+  z-index: 9999;
+}
+
+@keyframes popFade {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  50% {
+    transform: scale(1.5) translateY(-30px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(0.5) translateY(-60px);
+    opacity: 0;
+  }
+}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="envelope" id="envelope" aria-label="Love Letter">
+      <div class="flap" aria-hidden="true"></div>
+      <div class="pocket" aria-hidden="true"></div>
+      <div class="heart" id="heart">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 21l-1.45-1.3C5.4 15.4 2 12.2 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.7-3.4 6.9-8.55 11.5L12 21z"/>
+        </svg>
+        <div class="particle-1"></div>
+        <div class="particle-2"></div>
+        <div class="particle-3"></div>
+        <div class="particle-4"></div>
+      </div>
+      <img class="stamp1" alt="tem ảnh" src="img/Anh (3).jpg"/>
+      <img class="stamp2" alt="tem ảnh" src="img/Anh (21).jpg"/>
+    </section>
+    <p class="instruction">Bấm vào trái tim ❤️</p>
+  </main>
+  <audio id="bgMusic" src="./nhac.mp3" preload="auto" loop></audio>
+
+  <script>
+  const bgMusic = document.getElementById("bgMusic");
+
+window.addEventListener("load", () => {
+    const savedTime = localStorage.getItem("musicTime");
+    const wasPlaying = localStorage.getItem("musicPlaying") === "true";
+
+    if (savedTime) {
+        bgMusic.currentTime = parseFloat(savedTime);
+    }
+
+    if (wasPlaying) {
+        bgMusic.play().catch(() => {
+            console.log("Autoplay bị chặn, sẽ phát khi user chạm màn hình");
+        });
+    }
+});
+
+bgMusic.addEventListener("timeupdate", () => {
+    localStorage.setItem("musicTime", bgMusic.currentTime);
+});
+
+function enableMusicOnTouch() {
+    if (bgMusic.paused) {
+        bgMusic.play().then(() => {
+            console.log("Phát nhạc sau khi user chạm màn hình");
+        }).catch(err => console.log("Không thể phát nhạc:", err));
+    }
+    document.removeEventListener("click", enableMusicOnTouch);
+    document.removeEventListener("touchstart", enableMusicOnTouch);
+}
+
+document.addEventListener("click", enableMusicOnTouch);
+document.addEventListener("touchstart", enableMusicOnTouch);
+
+
+const env = document.getElementById('envelope');
+const heart = document.getElementById('heart');
+
+env.addEventListener('click', (e) => {
+    if (!e.target.closest('.heart')) {
+        env.classList.toggle('open');
+    }
+});
+
+heart.addEventListener('click', () => {
+    localStorage.setItem("musicTime", bgMusic.currentTime);
+    localStorage.setItem("musicPlaying", !bgMusic.paused);
+
+    window.location.href = 'anhthu.html';
+});
+function explodeHearts() {
+  for (let i = 0; i < 20; i++) {
+    const heart = document.createElement('div');
+    const icons = ['❤️', '💖','💝','💚', '💜'];
+    heart.textContent = icons[Math.floor(Math.random() * icons.length)];
+    heart.classList.add('emoji-effect');
+
+    const x = Math.random() * window.innerWidth;
+    const y = Math.random() * window.innerHeight;
+
+    heart.style.left = `${x}px`;
+    heart.style.top = `${y}px`; // Không cộng scrollY nữa
+    heart.style.fontSize = `${Math.random() * 1.5 + 1}rem`;
+
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 1000);
+  }
+
+  setTimeout(explodeHearts, 700);
+}
+explodeHearts();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <title>Nhập Mật Khẩu</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Pacifico', cursive;
+      background-image: url('https://i.pinimg.com/originals/92/33/80/92338017c079bea4f1250ed4a3056117.gif');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      animation: gradientBG 12s ease infinite;
+      position: relative;
+    }
+
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .container {
+      text-align: center;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      color: #ff00bb;
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(193, 193, 193, 0.5);
+    }
+
+    .content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      width: 100%;
+      height: 100%;
+    }
+
+    .avatar {
+      width: 250px;
+      height: 250px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      object-fit: cover;
+      animation: bounceAvatar 3s ease-in-out infinite;
+    }
+
+    .avatar:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 0 30px rgba(255, 102, 178, 0.7);
+    }
+
+    @keyframes bounceAvatar {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .password-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input#password {
+      width: 200px;
+      padding: 12px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border: 2px solid #fff;
+      border-radius: 8px;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    input#password.active {
+      border-color: #ff66b2;
+      box-shadow: 0 0 20px rgba(255, 102, 178, 0.8);
+      transform: scale(1.05);
+      animation: pulseInput 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulseInput {
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(255, 102, 178, 0.8);
+      }
+
+      50% {
+        box-shadow: 0 0 30px rgba(255, 102, 178, 1);
+      }
+    }
+
+    input#password.shake {
+      animation: shake 0.5s ease;
+    }
+
+    @keyframes shake {
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      10%,
+      30%,
+      50%,
+      70%,
+      90% {
+        transform: translateX(-5px);
+      }
+
+      20%,
+      40%,
+      60%,
+      80% {
+        transform: translateX(5px);
+      }
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .keypad button {
+      width: 60px;
+      height: 60px;
+      font-size: 20px;
+      border: none;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .keypad button:hover {
+      background-color: #ff66b2;
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255, 102, 178, 0.5);
+    }
+
+    .keypad button:active {
+      transform: translateY(0);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .keypad button.zero {
+      grid-column: 2;
+    }
+
+    .keypad button.clear {
+      background-color: #ff66b2;
+      color: white;
+    }
+
+    .submit {
+      width: 60px;
+      height: 60px;
+      font-size: 20px;
+      border: none;
+      background-color: #ff66b2;
+      color: white;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(255, 102, 178, 0.5);
+      transition: all 0.3s ease;
+      animation: glowSubmit 2s ease-in-out infinite;
+    }
+
+    .submit:hover {
+      transform: scale(1.2) rotate(10deg);
+      box-shadow: 0 0 30px rgba(255, 102, 178, 0.8);
+    }
+
+    @keyframes glowSubmit {
+      0%,
+      100% {
+        box-shadow: 0 0 15px rgba(255, 102, 178, 0.5);
+      }
+
+      50% {
+        box-shadow: 0 0 25px rgba(255, 102, 178, 0.9);
+      }
+    }
+    @media (max-width: 768px) {
+      .content {
+        margin: auto;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .avatar {
+        width: 140px;
+        height: 140px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      .keypad {
+        max-width: 180px;
+        gap: 8px;
+      }
+
+      .keypad button {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="content">
+      <img src="./style/img/Anh (4).jpg" alt="Avatar" class="avatar">
+      <div class="password-section">
+        <h1>NHẬP PASS ĐI NGƯỜI ĐẸP</h1>
+        <input type="text" id="password" placeholder="xxxxxx" readonly>
+        <div class="keypad">
+          <button onclick="addNumber('1')">1</button>
+          <button onclick="addNumber('2')">2</button>
+          <button onclick="addNumber('3')">3</button>
+          <button onclick="addNumber('4')">4</button>
+          <button onclick="addNumber('5')">5</button>
+          <button onclick="addNumber('6')">6</button>
+          <button onclick="addNumber('7')">7</button>
+          <button onclick="addNumber('8')">8</button>
+          <button onclick="addNumber('9')">9</button>
+          <button onclick="addNumber('0')" class="zero">0</button>
+          <button onclick="clearPassword()" class="clear">✖</button>
+        </div>
+        <button onclick="checkPassword()" class="submit">✔</button>
+      </div>
+    </div>
+  </div>
+
+  <audio id="bgMusic" src="./style/nhac.mp3" preload="auto" loop></audio>
+
+  <script>
+    let password = "";
+    const correctPassword = "201008";
+    const passwordInput = document.getElementById("password");
+    const bgMusic = document.getElementById("bgMusic");
+
+    function addNumber(number) {
+      if (password.length < 6) {
+        password += number;
+        passwordInput.value = password;
+        passwordInput.classList.add("active");
+
+        // phát nhạc khi có thao tác user
+        if (bgMusic.paused) {
+          bgMusic.currentTime = 10;
+          bgMusic.play();
+        }
+      }
+    }
+
+    function clearPassword() {
+      password = "";
+      passwordInput.value = password;
+      passwordInput.classList.remove("active");
+    }
+
+    function checkPassword() {
+      if (password === correctPassword) {
+        // lưu trạng thái nhạc
+        localStorage.setItem("musicTime", bgMusic.currentTime);
+        localStorage.setItem("musicPlaying", !bgMusic.paused);
+
+        window.location.href = "style/lathu.html";
+      } else {
+        passwordInput.classList.add("shake");
+        setTimeout(() => {
+          passwordInput.classList.remove("shake");
+          clearPassword();
+        }, 500);
+      }
+    }
+  </script>
+</body>
+
+</html>
+

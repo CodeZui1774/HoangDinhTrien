@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="./style/img/Anh (8).jpg" type="image/png" />
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet" /> -->
+  <title>Love Rain ❤️</title>
+  <style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* font-family: 'Pacifico', cursive; */
+    user-select: none;
+}
+
+:root {
+    --clr: rgb(255, 0, 174);
+}
+
+body {
+    min-height: 100vh;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.cloud {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    z-index: 100;
+    filter: drop-shadow(0 0 35px var(--clr));
+}
+
+.cloud img {
+    position: absolute;
+    top: -110px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    pointer-events: none;
+}
+
+.cloud h2 {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 350px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 15px;
+    background: var(--clr);
+    border: 2px solid #fff3;
+    box-shadow: 0 0 4px var(--clr), 0 0 10px var(--clr);
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 10px;
+}
+
+.cloud h2 span {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%;
+    animation: scroll-left 20s linear infinite;
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 2px #fff, 0 0 4px var(--clr);
+}
+
+@keyframes scroll-left {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+}
+
+.cloud .drop {
+    position: absolute;
+    top: 160px;
+    height: 20px;
+    line-height: 20px;
+    color: var(--clr);
+    transform-origin: bottom;
+    animation: animate 2s linear infinite;
+}
+
+@keyframes animate {
+    0% {
+    transform: translateY(0) scaleY(0);
+    transform-origin: top;
+    }
+    10% {
+    transform: translateY(0) scaleY(0.25);
+    transform-origin: top;
+    }
+    20% {
+    transform: translateY(0) scaleY(1);
+    }
+    70% {
+    transform: translateY(300px) scaleY(1);
+    transform-origin: bottom;
+    }
+    80% {
+    transform: translateY(300px) scaleY(1);
+    transform-origin: bottom;
+    }
+    100% {
+    transform: translateY(300px) scaleY(0);
+    transform-origin: bottom;
+    text-shadow: -180px 0 0 var(--clr), 180px 0 0 var(--clr);
+    }
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="cloud">
+      <img src="./img/cloud.png" alt="Cloud" />
+      <h2>
+        <span>💖 Anh thích em ❤️ 
+              Thích ánh mắt ấy 🎁 
+              khi em cười 💘 
+              khi em khóc ❤️‍🔥 
+              và cả cái cách em nhẹ nhàng bước qua đời anh 🍀
+              ANH THÍCH EM 🥰 
+            </span>
+      </h2>
+    </div>
+  </div>
+  <audio id="bgMusic" src="./nhac.mp3" preload="auto" loop></audio>
+  <script>
+    const bgMusic = document.getElementById("bgMusic");
+
+    window.addEventListener("load", () => {
+        const savedTime = localStorage.getItem("musicTime");
+        const wasPlaying = localStorage.getItem("musicPlaying") === "true";
+
+        if (savedTime) {
+            bgMusic.currentTime = parseFloat(savedTime);
+        }
+
+        if (wasPlaying) {
+            bgMusic.play().catch(() => {
+                console.log("Autoplay bị chặn, sẽ phát khi user chạm màn hình");
+            });
+        }
+    });
+
+    // 👉 Nếu autoplay bị chặn thì phát nhạc khi user chạm/click lần đầu
+    function enableMusicOnTouch() {
+        if (bgMusic.paused) {
+            bgMusic.play().then(() => {
+                console.log("Phát nhạc sau khi user chạm màn hình");
+            }).catch(err => console.log("Không thể phát nhạc:", err));
+        }
+        // Gỡ listener sau khi đã phát một lần
+        document.removeEventListener("click", enableMusicOnTouch);
+        document.removeEventListener("touchstart", enableMusicOnTouch);
+    }
+
+    document.addEventListener("click", enableMusicOnTouch);
+    document.addEventListener("touchstart", enableMusicOnTouch);
+
+function rain() {
+    const cloud = document.querySelector('.cloud');
+    const isImage = Math.random() < 0.3;
+    const e = document.createElement(isImage ? 'img' : 'div');
+    e.classList.add('drop');
+
+    const left = Math.floor(Math.random() * 290);
+    const size = 0.5 + Math.random() * 1.5;
+    const duration = 1 + Math.random() * 1;
+
+    if (isImage) {
+    const images = [];
+    for (let i = 1; i <= 13; i++) {
+    images.push(`./img/Anh (${i}).jpg`);
+    }
+    const randomImage = images[Math.floor(Math.random() * images.length)];
+    e.src = randomImage;
+    e.style.width = `${size * 20}px`;
+    e.style.height = `${size * 20}px`;
+    e.style.borderRadius = '50%';
+    } else {
+    const hearts = ['❤️', '🧡', '💛', '💚', '💜', '🤍', '💖'];
+    const randomHeart = hearts[Math.floor(Math.random() * hearts.length)];
+    e.innerText = randomHeart;
+    e.style.fontSize = size + 'em';
+    }
+
+    e.style.left = left + 'px';
+    e.style.animation = `animate ${duration}s linear`;
+    cloud.appendChild(e);
+
+    setTimeout(() => {
+    e.remove();
+    }, duration * 1000);
+}
+
+setInterval(rain, 70);
+  </script>
+</body>
+</html>
